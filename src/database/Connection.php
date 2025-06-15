@@ -20,16 +20,14 @@ class Connection
         }
     }
 
-    public static function getCommand($command)
+    public static function getMCommand($command)
     {
         try {
             $pdo = Connection::connect();
 
-            // Update the counter
             $updateStmt = $pdo->prepare('UPDATE commands SET counter = counter + 1 WHERE command = :command');
             $updateStmt->execute([':command' => $command]);
 
-            // Retrieve the command to reply the message
             $selectStmt = $pdo->prepare('SELECT * FROM commands WHERE command = :command');
             $selectStmt->execute([':command' => $command]);
 
@@ -49,7 +47,6 @@ class Connection
 
             $selectStmt->execute();
 
-            // Fetch all commands as an array
             $commands = $selectStmt->fetchAll(PDO::FETCH_COLUMN);
 
             return $commands;

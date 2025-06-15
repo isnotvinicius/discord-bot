@@ -37,16 +37,7 @@ class Bot
     private function replyMessage(Message $message, string $userCommand)
     {
         if ($userCommand === '!comandos') {
-            $commands = Connection::listCommands();
-
-            // Format the list of commands as a string with line breaks
-            $commandsList = implode("\n", $commands);
-
-            $commandsMessage = "📋 Comandos Disponíveis:\n"
-                . $commandsList . "\n"
-                . "Execute um dos comandos para receber uma mensagem personalizada!";
-
-            $message->reply(trim($commandsMessage));
+            $this->listCommands($message);
 
             return;
         }
@@ -58,5 +49,18 @@ class Bot
         $message->reply($messageToReply);
 
         return;
+    }
+
+    private function listCommands(Message $message)
+    {
+        $commands = Connection::listCommands();
+
+        $commandsList = implode("\n", $commands);
+
+        $commandsMessage = "📋 Comandos Disponíveis:\n"
+            . $commandsList . "\n"
+            . "Execute um dos comandos para receber uma mensagem personalizada!";
+
+        $message->reply(trim($commandsMessage));
     }
 }
