@@ -20,7 +20,7 @@ class Connection
         }
     }
 
-    public static function getMCommand($command)
+    public static function getCommand($command)
     {
         try {
             $pdo = Connection::connect();
@@ -38,6 +38,7 @@ class Connection
             exit();
         }
     }
+
     public static function listCommands()
     {
         try {
